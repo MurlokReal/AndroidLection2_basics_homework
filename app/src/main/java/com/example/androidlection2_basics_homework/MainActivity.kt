@@ -6,12 +6,21 @@ import android.util.Log
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
-    class FootballMatch(var Score1: Int, var Score2: Int) {
-        fun outputScore() {
-            Log.d("MyLog", "Team1: $Score1 Team2: $Score2")
+    class FootballMatch() {
+        var score1: Int = 0
+        var score2: Int = 0
+
+        fun setScore(S1: Int, S2: Int) {
+            score1 = S1
+            score2 = S2
         }
+
+        fun outputScore() {
+            Log.d("MyLog", "Team1: $score1 Team2: $score2")
+        }
+
         fun getGap() : Int {
-            return abs(Score1 - Score2)
+            return abs(score1 - score2)
         }
     }
 
@@ -33,14 +42,15 @@ class MainActivity : AppCompatActivity() {
         for (i in 0..9) {
             s1 = (0..5).random()
             s2 = (0..5).random()
-            val match = FootballMatch(s1, s2)
+            val match = FootballMatch()
+            match.setScore(s1, s2)
             matchList += match
             match.outputScore()
         }
 
         //Соберем матчи с одинаковым счетом в одну коллекицю
         var matchesWithZeroGap = emptyArray<FootballMatch>()
-        matchList.forEach() {if(it.Score1 == it.Score2) matchesWithZeroGap += it}
+        matchList.forEach() {if(it.score1 == it.score2) matchesWithZeroGap += it}
 
         //Удалим из списка матчи с одинаковым счетом
         matchList.removeAll(matchesWithZeroGap.toSet())
